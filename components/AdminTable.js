@@ -44,8 +44,14 @@ function MaterialTableAdmin() {
 
   // Columns must be defined within this component, otherwise no worky
   const columns = [
-    { title: "ID", field: "id" },
-    { title: "Item", field: "item" },
+    { title: "SO #", field: "so" },
+    { title: "RMA #", field: "rma" },
+    { title: "✓", field: "done" },
+    { title: "Received", field: "received", defaultSort: "desc" },
+    { title: "Completed", field: "completed" },
+    { title: "Part", field: "part" },
+    { title: "QTY", field: "qty" },
+    { title: "Note", field: "note" },
   ];
 
   return (
@@ -54,6 +60,7 @@ function MaterialTableAdmin() {
         title="Admin Table"
         columns={columns}
         data={data}
+        options={{ exportButton: true, grouping: true, actionsColumnIndex: -1 }}
         editable={{
           isEditable: (rowData) => true,
           isDeletable: (rowData) => true,

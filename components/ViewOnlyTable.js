@@ -24,7 +24,12 @@ function MaterialTableViewOnly() {
 
   return (
     <div className="App">
-      <MaterialTable title="View only table" columns={columns} data={data} />
+      <MaterialTable
+        title="View only table"
+        columns={columns}
+        data={data}
+        options={{ exportButton: true, grouping: true }}
+      />
     </div>
   );
 }

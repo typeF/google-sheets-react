@@ -4,7 +4,7 @@ export const loadSpreadSheet = ({ setMsg }) => {
   gapi.client.sheets.spreadsheets.values
     .get({
       // spreadsheetId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
-      spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
+      spreadsheetId: process.env.SPREADSHEET_ID,
       // range: "Class Data!A2:E",
       range: "A1:E5",
     })

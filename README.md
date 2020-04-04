@@ -14,14 +14,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## Learn More
+## ENV Variable setup
 
-To learn more about Next.js, take a look at the following resources:
+Create a **next.config.js** file with the following variables:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/zeit/next.js/) - your feedback and contributions are welcome!
+```
+GS_CLIENT_ID: Google sheets client ID
+GS_API_KEY: Google Developer API key
+GS_DISCOVERY_DOCS: "https://sheets.googleapis.com/$discovery/rest?version=v4"
+GS_SCOPES: "https://www.googleapis.com/auth/spreadsheets.readonly",
+```
 
 ## Deploy on ZEIT Now
 

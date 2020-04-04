@@ -1,45 +1,43 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
-import { fakeData, columns } from "../utils/fakeData";
+import { fakeData } from "../utils/fakeData";
 import { formatData, getTotalCount } from "../utils/formatData";
 
-function MaterialTableAdmin() {
+const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
-    data: fakeData,
+    // data: fakeData,
+    data: sheetData,
     resolve: () => {},
     updatedAt: new Date(),
   });
-  const [haha, setHaha] = useState([]);
 
-  const loadSpreadSheet = () => {
-    gapi.client.sheets.spreadsheets.values
-      .get({
-        // spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
-        spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
-        range: "RMA list",
-      })
-      .then(
-        function (response) {
-          const range = response.result;
-          if (range.values.length > 0) {
-            console.log(range);
-            // setMsg(range.values[2]);
-            setHaha(range);
-          } else {
-            console.error(`No data found`);
-          }
-        },
-        function (response) {
-          console.error(`Error: ${response.result.error.message}`);
-        }
-      );
-  };
+  // const loadSpreadSheet = () => {
+  //   gapi.client.sheets.spreadsheets.values
+  //     .get({
+  //       // spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
+  //       spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
+  //       range: "RMA list",
+  //     })
+  //     .then(
+  //       function (response) {
+  //         const range = response.result;
+  //         if (range.values.length > 0) {
+  //           console.log(range);
+  //           // setMsg(range.values[2]);
+  //           setHaha(range);
+  //         } else {
+  //           console.error(`No data found`);
+  //         }
+  //       },
+  //       function (response) {
+  //         console.error(`Error: ${response.result.error.message}`);
+  //       }
+  //     );
+  // };
 
   useEffect(() => {
     // loadSpreadSheet();
-    // window.setTimeout(loadSpreadSheet, 2000);
     gridData.resolve();
-    // console.log("RESOLVE AT:", gridData.updatedAt);
   }, [gridData]);
 
   const onRowAdd = (newData) =>
@@ -84,42 +82,50 @@ function MaterialTableAdmin() {
     { title: "Note", field: "note" },
   ];
 
+  /* eslint-disable no-undef */
   return (
     <div className="App">
       <MaterialTable
         title="Admin Table"
         columns={columns}
-        // data={data}
-        data={(query) =>
-          new Promise((resolve, reject) => {
-            gapi.client.sheets.spreadsheets.values
-              .get({
-                spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
-                range: "RMA list",
-              })
-              .then(
-                function (response) {
-                  const range = response.result;
-                  if (range.values.length > 0) {
-                    console.log(range);
-                    // setMsg(range.values[2]);
-                    // setHaha(range);
-                    resolve({
-                      data: formatData(range.values),
-                      page: 0,
-                      totalCount: getTotalCount(range.values),
-                    });
-                  } else {
-                    console.error(`No data found`);
-                  }
-                },
-                function (response) {
-                  console.error(`Error: ${response.result.error.message}`);
-                }
-              );
-          })
-        }
-        options={{ exportButton: true, grouping: true, actionsColumnIndex: -1 }}
+        data={data}
+        // data={(query) =>
+        //   new Promise((resolve, reject) => {
+        //     gapi.client.sheets.spreadsheets.values
+        //       .get({
+        //         spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
+        //         range: "RMA list",
+        //       })
+        //       .then(
+        //         function (response) {
+        //           const range = response.result;
+        //           if (range.values.length > 0) {
+        //             console.log(range);
+        //             // setMsg(range.values[2]);
+        //             // setHaha(range);
+        //             resolve({
+        //               data: formatData(range.values),
+        //               page: 0,
+        //               totalCount: getTotalCount(range.values),
+        //             });
+        //           } else {
+        //             console.error(`No data found`);
+        //           }
+        //         },
+        //         function (response) {
+        //           console.error(`Error: ${response.result.error.message}`);
+        //         }
+        //       );
+        //   })
+        // }
+        options={{
+          exportButton: true,
+          exportFileName: `RMA Sheet - ${new Date().toDateString()}`,
+          grouping: true,
+          actionsColumnIndex: -1,
+          pageSize: 10,
+          pageSizeOptions: [10, 20, 50],
+        }}
         editable={{
           isEditable: (rowData) => true,
           isDeletable: (rowData) => true,
@@ -130,6 +136,6 @@ function MaterialTableAdmin() {
       />
     </div>
   );
-}
+};
 
 export default MaterialTableAdmin;

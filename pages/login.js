@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Layout>
+      {/* <Layout>
         <main>
           <button id="authorize" onClick={handleAuthClick}>
             Authorize
@@ -64,7 +64,7 @@ const Login = () => {
             background-color: white;
           }
         `}</style>
-      </Layout>
+      </Layout> */}
     </div>
   );
 };

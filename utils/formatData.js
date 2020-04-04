@@ -14,8 +14,6 @@ export const formatData = (data) => {
         note: row[7] ? row[7] : "",
       };
     });
-  // console.log(res);
-  // return res;
 };
 
 const rowNotEmpty = (row) => {

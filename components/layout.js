@@ -2,38 +2,36 @@ import Head from "next/head";
 import { CLIENT_ID, GS_API_KEY, DISCOVERY_DOCS, SCOPES } from "../api/config";
 import { useState, useEffect } from "react";
 
-function handleClientLoad() {
-  gapi.load("client:auth2", initClient);
-}
+export default ({ children, title = "Spreadsheet", setSheetsLoaded }) => {
+  function handleClientLoad() {
+    gapi.load("client:auth2", initClient);
+  }
 
-/**
- *  Initializes the API client library and sets up sign-in state
- *  listeners.
- */
-function initClient() {
-  gapi.client
-    .init({
-      apiKey: GS_API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES,
-    })
-    .then(
-      () => {
-        // Listen for sign-in state changes.
-        // gapi.auth2
-        //   .getAuthInstance()
-        //   .isSignedIn.listen(updateSigninStatus);
-        // Handle the initial sign-in state.
-        // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      },
-      (error) => {
-        console.error(error);
-        // setMsg(JSON.stringify(error, null, 2));
-      }
-    );
-}
-export default ({ children, title = "Spreadsheet" }) => {
+  function initClient() {
+    gapi.client
+      .init({
+        apiKey: GS_API_KEY,
+        clientId: CLIENT_ID,
+        discoveryDocs: DISCOVERY_DOCS,
+        scope: SCOPES,
+      })
+      .then(
+        () => {
+          setSheetsLoaded(true);
+          // Listen for sign-in state changes.
+          // gapi.auth2
+          //   .getAuthInstance()
+          //   .isSignedIn.listen(updateSigninStatus);
+          // Handle the initial sign-in state.
+          // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        },
+        (error) => {
+          console.error(error);
+          // setMsg(JSON.stringify(error, null, 2));
+        }
+      );
+  }
+
   useEffect(() => {
     handleClientLoad();
   });

@@ -15,10 +15,9 @@ const Login = () => {
   const loadSpreadSheet = () => {
     gapi.client.sheets.spreadsheets.values
       .get({
-        // spreadsheetId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
-        spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
-        // range: "Class Data!A2:E",
-        range: "A1:E5",
+        // spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
+        spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
+        range: "RMA list",
       })
       .then(
         function (response) {

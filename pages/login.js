@@ -1,6 +1,7 @@
 import Layout from "../components/layout";
 import { useState } from "react";
 
+/* eslint-disable no-undef*/
 const handleAuthClick = (e) => {
   gapi.auth2.getAuthInstance().signIn();
 };
@@ -13,29 +14,6 @@ const Login = () => {
   const [sheetsLoaded, setSheetsLoaded] = useState(false);
   const [sheetData, setSheetData] = useState({});
   const [msg, setMsg] = useState("API MSG");
-
-  const loadSpreadSheet = () => {
-    gapi.client.sheets.spreadsheets.values
-      .get({
-        // spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
-        spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
-        range: "RMA list",
-      })
-      .then(
-        function (response) {
-          var range = response.result;
-          if (range.values.length > 0) {
-            console.log(range);
-            setMsg(range.values[2]);
-          } else {
-            setMsg(`No data found`);
-          }
-        },
-        function (response) {
-          setMsg(`Error: ${response.result.error.message}`);
-        }
-      );
-  };
 
   /* eslint-disable react/react-in-jsx-scope */
   return (

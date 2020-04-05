@@ -4,4 +4,5 @@ export const GS_API_KEY = process.env.GS_API_KEY;
 export const GS_SPREADSHEET_ID = process.env.GS_SPREADSHEET_ID;
 export const GS_SHEET_ID = process.env.GS_SHEET_ID;
 export const DISCOVERY_DOCS = [process.env.GS_DISCOVERY_DOCS];
-export const SCOPES = process.env.GS_SCOPES;
+export const SCOPES_READ_ONLY = process.env.GS_SCOPES_READ_ONLY;
+export const SCOPES_WRITE = process.env.GS_SCOPES_WRITE;

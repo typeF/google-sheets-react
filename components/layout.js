@@ -3,7 +3,7 @@ import {
   CLIENT_ID,
   GS_API_KEY,
   DISCOVERY_DOCS,
-  SCOPES,
+  SCOPES_WRITE,
   GS_SPREADSHEET_ID,
 } from "../api/config";
 import { useState, useEffect } from "react";
@@ -26,7 +26,7 @@ export default ({
         apiKey: GS_API_KEY,
         clientId: CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES,
+        scope: SCOPES_WRITE,
       })
       .then(
         () => {
@@ -57,7 +57,7 @@ export default ({
         function (response) {
           const range = response.result;
           if (range.values.length > 0) {
-            console.log(range);
+            // console.log(range);
             setSheetData(formatData(range.values));
           } else {
             console.error(`No data found`);

@@ -5,7 +5,6 @@ import { addRowToSheets, updateRow, deleteRow } from "../api/googleSheets";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
-    // data: fakeData,
     data: sheetData,
     resolve: () => {},
     updatedAt: new Date(),

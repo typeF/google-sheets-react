@@ -4,6 +4,7 @@ export const formatData = (data) => {
     .filter(rowNotEmpty)
     .map((row) => {
       return {
+        row: "zzz",
         so: row[0],
         rma: row[1],
         done: row[2],
@@ -12,6 +13,7 @@ export const formatData = (data) => {
         part: row[5] ? row[5] : "",
         qty: row[6] ? row[6] : "",
         note: row[7] ? row[7] : "",
+        coord: ["A1", "C2"],
       };
     });
 };

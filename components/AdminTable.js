@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
-import { fakeData } from "../utils/fakeData";
-import { formatData, getTotalCount } from "../utils/formatData";
+// import { fakeData } from "../utils/fakeData";
+// import { formatData, getTotalCount } from "../utils/formatData";
 import Checkbox from "@material-ui/core/Checkbox";
+import { addRowToSheets } from "../api/googleSheets";
+// import { }
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -19,10 +21,12 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   const onRowAdd = (newData) =>
     new Promise((resolve, reject) => {
+      // TODO: Provide feedback depending on success/fail of async
+      addRowToSheets(newData);
       const { data } = gridData;
       const updatedAt = new Date();
       data.push(newData);
-      setGridData({ ...gridData, data, resolve, updatedAt });
+      setGridData({ ...gridData, resolve, updatedAt });
     });
 
   const onRowDelete = (oldData) =>
@@ -36,6 +40,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   const onRowUpdate = (newData, oldData) =>
     new Promise((resolve, reject) => {
+      console.log(oldData);
       const { data } = gridData;
       const updatedAt = new Date();
       const index = data.indexOf(oldData);
@@ -49,6 +54,15 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   // Columns must be defined within this component, otherwise no worky
   const columns = [
+    {
+      title: "Row",
+      field: "row",
+      cellStyle: {
+        textAlign: "center",
+      },
+      hidden: true,
+      searchable: false,
+    },
     {
       title: "SO #",
       field: "so",
@@ -70,6 +84,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
       cellStyle: {
         textAlign: "center",
       },
+      defaultFilter: "false",
       /* eslint-disable react/display-name */
       render: (rowData) => (
         <Checkbox
@@ -105,7 +120,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
   return (
     <div className="App">
       <MaterialTable
-        title="Admin Table"
+        title="RMA List - Admin"
         columns={columns}
         data={data}
         // data={(query) =>
@@ -141,6 +156,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
           actionsColumnIndex: -1,
           exportButton: true,
           exportFileName: `RMA Sheet - ${new Date().toDateString()}`,
+          filtering: true,
           grouping: true,
           headerStyle: {
             // backgroundColor: "#031CFC",

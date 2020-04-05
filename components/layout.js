@@ -5,7 +5,7 @@ import { formatData } from "../utils/formatData";
 
 /* eslint-disable */
 export default ({
-  // children,
+  children,
   title = "Spreadsheet",
   setSheetsLoaded,
   setSheetData,
@@ -72,20 +72,23 @@ export default ({
   }, []);
 
   return (
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <link rel="icon" href="/favicon.ico" />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      />
-      <script
-        async
-        defer
-        src="https://apis.google.com/js/api.js"
-        // onreadystatechange="if (this.readyState === 'complete') this.onload()"
-      ></script>
-    </Head>
+    <div>
+      <Head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        />
+        <script
+          async
+          defer
+          src="https://apis.google.com/js/api.js"
+          // onreadystatechange="if (this.readyState === 'complete') this.onload()"
+        ></script>
+      </Head>
+      {children}
+    </div>
   );
 };

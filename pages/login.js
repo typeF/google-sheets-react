@@ -10,6 +10,8 @@ const handleSignoutClick = (e) => {
 };
 
 const Login = () => {
+  const [sheetsLoaded, setSheetsLoaded] = useState(false);
+  const [sheetData, setSheetData] = useState({});
   const [msg, setMsg] = useState("API MSG");
 
   const loadSpreadSheet = () => {
@@ -35,16 +37,21 @@ const Login = () => {
       );
   };
 
+  /* eslint-disable react/react-in-jsx-scope */
   return (
     <div className="container">
-      {/* <Layout>
-        <main>
-          <button id="authorize" onClick={handleAuthClick}>
-            Authorize
-          </button>
-          <button onClick={handleSignoutClick}>Sign Out</button>
-          <button onClick={loadSpreadSheet}>Get Majors</button>
-        </main>
+      <Layout setSheetData={setSheetData} setSheetsLoaded={setSheetsLoaded}>
+        {sheetsLoaded && (
+          <div>
+            <button id="authorize" onClick={handleAuthClick}>
+              Authorize
+            </button>
+            <button onClick={handleSignoutClick}>Sign Out</button>
+          </div>
+        )}
+        {/* <main> */}
+        {/* <button onClick={loadSpreadSheet}>Get Majors</button> */}
+        {/* </main> */}
         <footer>{msg}</footer>
         <style jsx>{`
           #authorize {
@@ -64,7 +71,7 @@ const Login = () => {
             background-color: white;
           }
         `}</style>
-      </Layout> */}
+      </Layout>
     </div>
   );
 };

@@ -1,24 +1,28 @@
 import { useState } from "react";
 import Layout from "../components/layout";
-// import MaterialTableAdmin from "../components/AdminTable";
-import MaterialTableViewOnly from "../components/ViewOnlyTable";
+import MaterialTableAdmin from "../components/AdminTable";
+import { useFetchUser } from "../lib/user";
 
 /* eslint-disable */
 export default () => {
   const [sheetsLoaded, setSheetsLoaded] = useState(false);
   const [sheetData, setSheetData] = useState({});
 
+  const { user, loading } = useFetchUser();
+
   return (
     <div className="container">
-      <Layout setSheetsLoaded={setSheetsLoaded} setSheetData={setSheetData} />
+      <Layout
+        user={user}
+        loading={loading}
+        setSheetsLoaded={setSheetsLoaded}
+        setSheetData={setSheetData}
+      />
       <main>
         <h1 className="title">Spreadsheet</h1>
         <div className="table-container">
-          {/* {sheetsLoaded && sheetData.length > 0 && (
-            <MaterialTableAdmin sheetData={sheetData} />
-          )} */}
           {sheetsLoaded && sheetData.length > 0 && (
-            <MaterialTableViewOnly sheetData={sheetData} />
+            <MaterialTableAdmin sheetData={sheetData} />
           )}
         </div>
       </main>
@@ -93,21 +97,6 @@ export default () => {
             width: 100%;
             flex-direction: column;
           }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
         }
       `}</style>
     </div>

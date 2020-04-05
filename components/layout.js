@@ -1,4 +1,7 @@
 import Head from "next/head";
+import { useState, useEffect } from "react";
+import { formatData } from "../utils/formatData";
+import { UserProvider } from "../lib/user";
 import {
   CLIENT_ID,
   GS_API_KEY,
@@ -6,8 +9,6 @@ import {
   SCOPES_WRITE,
   GS_SPREADSHEET_ID,
 } from "../api/config";
-import { useState, useEffect } from "react";
-import { formatData } from "../utils/formatData";
 
 /* eslint-disable */
 export default ({
@@ -15,6 +16,8 @@ export default ({
   title = "Spreadsheet",
   setSheetsLoaded,
   setSheetData,
+  user,
+  loading = false,
 }) => {
   function handleClientLoad() {
     gapi.load("client:auth2", initClient);
@@ -74,18 +77,20 @@ export default ({
   }, []);
 
   return (
-    <div>
-      <Head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        />
-        <script async defer src="https://apis.google.com/js/api.js"></script>
-      </Head>
-      {children}
-    </div>
+    <UserProvider value={{ user, loading }}>
+      <div>
+        <Head>
+          <title>{title}</title>
+          <meta charSet="utf-8" />
+          <link rel="icon" href="/favicon.ico" />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          />
+          <script async defer src="https://apis.google.com/js/api.js"></script>
+        </Head>
+        {children}
+      </div>
+    </UserProvider>
   );
 };

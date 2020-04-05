@@ -4,7 +4,6 @@ import {
   GS_SPREADSHEET_ID,
   GS_SHEET_ID,
   DISCOVERY_DOCS,
-  SCOPES_WRITE,
 } from "./config";
 
 /* eslint-disable no-undef */

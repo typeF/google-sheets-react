@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
-import { addRowToSheets } from "../api/googleSheets";
+import { addRowToSheets, updateRow, deleteRow } from "../api/googleSheets";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -25,22 +25,23 @@ const MaterialTableAdmin = ({ sheetData }) => {
       setGridData({ ...gridData, resolve, updatedAt });
     });
 
-  const onRowDelete = (oldData) =>
-    new Promise((resolve, reject) => {
-      const { data } = gridData;
-      const updatedAt = new Date();
-      const index = data.indexOf(oldData);
-      data.splice(index, 1);
-      setGridData({ ...gridData, data, resolve, updatedAt });
-    });
-
   const onRowUpdate = (newData, oldData) =>
     new Promise((resolve, reject) => {
-      console.log(oldData);
+      updateRow(newData);
       const { data } = gridData;
       const updatedAt = new Date();
       const index = data.indexOf(oldData);
       data[index] = newData;
+      setGridData({ ...gridData, data, resolve, updatedAt });
+    });
+
+  const onRowDelete = (oldData) =>
+    new Promise((resolve, reject) => {
+      deleteRow(oldData);
+      const { data } = gridData;
+      const updatedAt = new Date();
+      const index = data.indexOf(oldData);
+      data.splice(index, 1);
       setGridData({ ...gridData, data, resolve, updatedAt });
     });
 
@@ -114,7 +115,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
   return (
     <div className="App">
       <MaterialTable
-        title="RMA List - Admin"
+        title="Admin"
         columns={columns}
         data={data}
         options={{
@@ -124,9 +125,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
           filtering: true,
           grouping: true,
           headerStyle: {
-            // backgroundColor: "#031CFC",
-            right: "10",
-            backgroundColor: "rgba(3,28,252,0.8)",
+            backgroundColor: "rgba(254, 125, 26)",
             color: "white",
             fontWeight: "bold",
             textAlign: "center",
@@ -134,8 +133,8 @@ const MaterialTableAdmin = ({ sheetData }) => {
           rowStyle: {
             textAlign: "right",
           },
-          pageSize: 10,
-          pageSizeOptions: [10, 20, 50],
+          pageSize: 25,
+          pageSizeOptions: [25, 50],
         }}
         editable={{
           isEditable: (rowData) => true,
@@ -146,7 +145,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
         }}
       />
       <style jsx>{`
-        .MuiCheckbox-colorPrimary.Mui-disabled {
+        .Checkbox.disabled {
           margin-right: 69px;
           color: rgba(3, 28, 252, 0.8);
         }

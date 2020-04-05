@@ -1,5 +1,11 @@
 import Head from "next/head";
-import { CLIENT_ID, GS_API_KEY, DISCOVERY_DOCS, SCOPES } from "../api/config";
+import {
+  CLIENT_ID,
+  GS_API_KEY,
+  DISCOVERY_DOCS,
+  SCOPES,
+  GS_SPREADSHEET_ID,
+} from "../api/config";
 import { useState, useEffect } from "react";
 import { formatData } from "../utils/formatData";
 
@@ -44,8 +50,7 @@ export default ({
   const loadSpreadSheet = () => {
     gapi.client.sheets.spreadsheets.values
       .get({
-        // spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
-        spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
+        spreadsheetId: GS_SPREADSHEET_ID,
         range: "RMA list",
       })
       .then(
@@ -53,9 +58,6 @@ export default ({
           const range = response.result;
           if (range.values.length > 0) {
             console.log(range);
-            // setMsg(range.values[2]);
-            // setHaha(range);
-            // setSheetData(true);
             setSheetData(formatData(range.values));
           } else {
             console.error(`No data found`);
@@ -81,12 +83,7 @@ export default ({
           rel="stylesheet"
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
-        <script
-          async
-          defer
-          src="https://apis.google.com/js/api.js"
-          // onreadystatechange="if (this.readyState === 'complete') this.onload()"
-        ></script>
+        <script async defer src="https://apis.google.com/js/api.js"></script>
       </Head>
       {children}
     </div>

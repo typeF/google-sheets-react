@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
-// import { fakeData } from "../utils/fakeData";
-// import { formatData, getTotalCount } from "../utils/formatData";
 import Checkbox from "@material-ui/core/Checkbox";
 import { addRowToSheets } from "../api/googleSheets";
-// import { }
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -15,7 +12,6 @@ const MaterialTableAdmin = ({ sheetData }) => {
   });
 
   useEffect(() => {
-    // loadSpreadSheet();
     gridData.resolve();
   }, [gridData]);
 
@@ -49,8 +45,6 @@ const MaterialTableAdmin = ({ sheetData }) => {
     });
 
   const { data } = gridData;
-
-  // const data = haha.values;
 
   // Columns must be defined within this component, otherwise no worky
   const columns = [
@@ -123,35 +117,6 @@ const MaterialTableAdmin = ({ sheetData }) => {
         title="RMA List - Admin"
         columns={columns}
         data={data}
-        // data={(query) =>
-        //   new Promise((resolve, reject) => {
-        //     gapi.client.sheets.spreadsheets.values
-        //       .get({
-        //         spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
-        //         range: "RMA list",
-        //       })
-        //       .then(
-        //         function (response) {
-        //           const range = response.result;
-        //           if (range.values.length > 0) {
-        //             console.log(range);
-        //             // setMsg(range.values[2]);
-        //             // setHaha(range);
-        //             resolve({
-        //               data: formatData(range.values),
-        //               page: 0,
-        //               totalCount: getTotalCount(range.values),
-        //             });
-        //           } else {
-        //             console.error(`No data found`);
-        //           }
-        //         },
-        //         function (response) {
-        //           console.error(`Error: ${response.result.error.message}`);
-        //         }
-        //       );
-        //   })
-        // }
         options={{
           actionsColumnIndex: -1,
           exportButton: true,

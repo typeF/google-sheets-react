@@ -9,12 +9,16 @@ import {
 /* eslint-disable no-undef */
 export const addRowToSheets = (newData) => {
   // TODO: Make sure object.keys();
+  if (Object.keys(newData).length < 1) {
+    return;
+  }
   gapi.client.sheets.spreadsheets.values
     .append({
       spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
       // spreadsheetId: GS_SPREADSHEET_ID,
       range: "RMA list",
       valueInputOption: "USER_ENTERED",
+      insertDataOption: "INSERT_ROWS",
       resource: {
         values: buildAppendValueArray(newData),
       },

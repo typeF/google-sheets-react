@@ -13,7 +13,7 @@ import {
 /* eslint-disable */
 export default ({
   children,
-  title = "Spreadsheet",
+  title = "RMA List",
   setSheetsLoaded,
   setSheetData,
   user,
@@ -41,7 +41,6 @@ export default ({
           // Handle the initial sign-in state.
           // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
           loadSpreadSheet();
-          // setSheetData({ a: 1 });
         },
         (error) => {
           console.error(error);
@@ -60,7 +59,6 @@ export default ({
         function (response) {
           const range = response.result;
           if (range.values.length > 0) {
-            // console.log(range);
             setSheetData(formatData(range.values));
           } else {
             console.error(`No data found`);

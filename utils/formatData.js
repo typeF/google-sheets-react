@@ -5,7 +5,7 @@ export const formatData = (data) => {
         row: i + 1,
         so: row[0] ? row[0] : "",
         rma: row[1] ? row[1] : "",
-        done: row[2] ? row[2] : "",
+        done: row[2] ? row[2] : "FALSE",
         received: row[3] ? row[3] : "",
         completed: row[4] ? row[4] : "",
         part: row[5] ? row[5] : "",
@@ -15,6 +15,7 @@ export const formatData = (data) => {
     })
     .slice(1)
     .filter(rowNotEmpty);
+  console.log(arr);
   return arr;
 };
 

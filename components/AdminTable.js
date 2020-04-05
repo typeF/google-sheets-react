@@ -44,6 +44,14 @@ const MaterialTableAdmin = ({ sheetData }) => {
       setGridData({ ...gridData, data, resolve, updatedAt });
     });
 
+  const authorizeApp = () => {
+    gapi.auth2.getAuthInstance().signIn();
+  };
+
+  const deAuthorizeApp = () => {
+    gapi.auth2.getAuthInstance().signOut();
+  };
+
   const { data } = gridData;
 
   // Columns must be defined within this component, otherwise no worky
@@ -78,7 +86,9 @@ const MaterialTableAdmin = ({ sheetData }) => {
       cellStyle: {
         textAlign: "center",
       },
+      emptyValue: "false",
       defaultFilter: "false",
+      initialEditValue: "false",
       /* eslint-disable react/display-name */
       render: (rowData) => (
         <Checkbox
@@ -117,6 +127,24 @@ const MaterialTableAdmin = ({ sheetData }) => {
         title="Admin"
         columns={columns}
         data={data}
+        actions={[
+          {
+            icon: "vpn_key_outlined",
+            tooltip: "Authorize App",
+            isFreeAction: true,
+            onClick: () => {
+              authorizeApp();
+            },
+          },
+          {
+            icon: "lockopen",
+            tooltip: "Log App out",
+            isFreeAction: true,
+            onClick: () => {
+              deAuthorizeApp();
+            },
+          },
+        ]}
         options={{
           actionsColumnIndex: -1,
           exportButton: true,

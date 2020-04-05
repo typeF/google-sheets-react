@@ -1,10 +1,4 @@
-import {
-  CLIENT_ID,
-  GS_API_KEY,
-  GS_SPREADSHEET_ID,
-  GS_SHEET_ID,
-  DISCOVERY_DOCS,
-} from "./config";
+import { GS_SPREADSHEET_ID, GS_SHEET_ID } from "./config";
 
 /* eslint-disable no-undef */
 export const addRowToSheets = (newData) => {
@@ -37,7 +31,7 @@ const buildAppendValueArray = (newData) => {
     [
       so ? so : "",
       rma ? rma : "",
-      done ? done : "",
+      done ? done : "false",
       received ? received : "",
       completed ? completed : "",
       part ? part : "",
@@ -101,31 +95,3 @@ export const deleteRow = (oldData) => {
       }
     );
 };
-
-export const handleClientLoad = () => {
-  gapi.load("client:auth2", initClient);
-};
-
-function initClient() {
-  gapi.client
-    .init({
-      apiKey: GS_API_KEY,
-      clientId: CLIENT_ID,
-      discoveryDocs: DISCOVERY_DOCS,
-      scope: SCOPES,
-    })
-    .then(
-      function () {
-        // Listen for sign-in state changes.
-        // gapi.auth2
-        //   .getAuthInstance()
-        //   .isSignedIn.listen(updateSigninStatus);
-        // Handle the initial sign-in state.
-        // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      },
-      function (error) {
-        console.error(error);
-        // setMsg(JSON.stringify(error, null, 2));
-      }
-    );
-}

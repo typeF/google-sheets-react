@@ -83,7 +83,7 @@ const MaterialTableViewOnly = ({ sheetData }) => {
   return (
     <div className="App">
       <MaterialTable
-        title="View-only"
+        title="View-Only"
         columns={columns}
         data={data}
         options={{

@@ -8,7 +8,6 @@ import {
 
 /* eslint-disable no-undef */
 export const addRowToSheets = (newData) => {
-  // TODO: Make sure object.keys();
   if (Object.keys(newData).length < 1) {
     return;
   }
@@ -48,6 +47,60 @@ const buildAppendValueArray = (newData) => {
     ],
   ];
   return array;
+};
+
+export const updateRow = (newData) => {
+  const { row } = newData;
+  gapi.client.sheets.spreadsheets.values
+    .update({
+      spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
+      valueInputOption: "USER_ENTERED",
+      range: `A${row}:H${row}`,
+      resource: {
+        values: buildAppendValueArray(newData),
+      },
+    })
+    .then(
+      (response) => {
+        console.log(response.result);
+      },
+      (reason) => {
+        console.error(`Error: ${reason.result.error.message}`);
+      }
+    );
+};
+
+export const deleteRow = (oldData) => {
+  const { row } = oldData;
+  console.log(row);
+  gapi.client.sheets.spreadsheets
+    .batchUpdate(
+      {
+        spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
+      },
+      {
+        requests: [
+          {
+            deleteDimension: {
+              range: {
+                sheetId: "1386834576", // #gid=sheetId
+                dimension: "ROWS",
+                startIndex: row - 1,
+                endIndex: row,
+              },
+            },
+          },
+        ],
+      }
+    )
+    .then(
+      (response) => {
+        console.log(response.result);
+      },
+      (reason) => {
+        console.error(`Error deleting row: ${reason.result.error.message}`);
+      }
+    );
 };
 
 export const handleClientLoad = () => {

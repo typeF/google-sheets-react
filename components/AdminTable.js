@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
-import { addRowToSheets } from "../api/googleSheets";
+import { addRowToSheets, updateRow, deleteRow } from "../api/googleSheets";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -25,22 +25,23 @@ const MaterialTableAdmin = ({ sheetData }) => {
       setGridData({ ...gridData, resolve, updatedAt });
     });
 
-  const onRowDelete = (oldData) =>
-    new Promise((resolve, reject) => {
-      const { data } = gridData;
-      const updatedAt = new Date();
-      const index = data.indexOf(oldData);
-      data.splice(index, 1);
-      setGridData({ ...gridData, data, resolve, updatedAt });
-    });
-
   const onRowUpdate = (newData, oldData) =>
     new Promise((resolve, reject) => {
-      console.log(oldData);
+      updateRow(newData);
       const { data } = gridData;
       const updatedAt = new Date();
       const index = data.indexOf(oldData);
       data[index] = newData;
+      setGridData({ ...gridData, data, resolve, updatedAt });
+    });
+
+  const onRowDelete = (oldData) =>
+    new Promise((resolve, reject) => {
+      deleteRow(oldData);
+      const { data } = gridData;
+      const updatedAt = new Date();
+      const index = data.indexOf(oldData);
+      data.splice(index, 1);
       setGridData({ ...gridData, data, resolve, updatedAt });
     });
 

@@ -84,7 +84,7 @@ export default ({
         async
         defer
         src="https://apis.google.com/js/api.js"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()"
+        // onreadystatechange="if (this.readyState === 'complete') this.onload()"
       ></script>
     </Head>
   );

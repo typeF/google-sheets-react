@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import { fakeData } from "../utils/fakeData";
 import { formatData, getTotalCount } from "../utils/formatData";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -10,30 +11,6 @@ const MaterialTableAdmin = ({ sheetData }) => {
     resolve: () => {},
     updatedAt: new Date(),
   });
-
-  // const loadSpreadSheet = () => {
-  //   gapi.client.sheets.spreadsheets.values
-  //     .get({
-  //       // spreadsheetId: "1zAe53lK06l2Pg4gUr1qsUwZo1LFkmmko-nq-OH53Iv4",
-  //       spreadsheetId: "1Kvxwr_BHB50MVmlbfjeT1vGgIoGSVX1uiNdnB4IJnTk",
-  //       range: "RMA list",
-  //     })
-  //     .then(
-  //       function (response) {
-  //         const range = response.result;
-  //         if (range.values.length > 0) {
-  //           console.log(range);
-  //           // setMsg(range.values[2]);
-  //           setHaha(range);
-  //         } else {
-  //           console.error(`No data found`);
-  //         }
-  //       },
-  //       function (response) {
-  //         console.error(`Error: ${response.result.error.message}`);
-  //       }
-  //     );
-  // };
 
   useEffect(() => {
     // loadSpreadSheet();
@@ -72,14 +49,56 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   // Columns must be defined within this component, otherwise no worky
   const columns = [
-    { title: "SO #", field: "so" },
-    { title: "RMA #", field: "rma" },
-    { title: "✓", field: "done" },
-    { title: "Received", field: "received", defaultSort: "desc" },
-    { title: "Completed", field: "completed" },
-    { title: "Part", field: "part" },
-    { title: "QTY", field: "qty" },
-    { title: "Note", field: "note" },
+    {
+      title: "SO #",
+      field: "so",
+      cellStyle: {
+        width: 200,
+        textAlign: "center",
+      },
+    },
+    {
+      title: "RMA #",
+      field: "rma",
+      cellStyle: {
+        textAlign: "center",
+      },
+    },
+    {
+      title: "✓",
+      field: "done",
+      cellStyle: {
+        textAlign: "center",
+      },
+      /* eslint-disable react/display-name */
+      render: (rowData) => (
+        <Checkbox
+          classes={{ root: "Checkbox", disabled: "disabled" }}
+          color="primary"
+          // disabled={true}
+          checked={rowData.done === "TRUE"}
+          inputProps={{ "aria-label": "Checkbox" }}
+        />
+      ),
+    },
+    {
+      title: "Received",
+      field: "received",
+      defaultSort: "desc",
+      cellStyle: {
+        textAlign: "center",
+      },
+    },
+    {
+      title: "Completed",
+      field: "completed",
+      cellStyle: {
+        textAlign: "center",
+      },
+    },
+    { title: "Part", field: "part", cellStyle: { textAlign: "center" } },
+    { title: "QTY", field: "qty", cellStyle: { textAlign: "center" } },
+    { title: "Note", field: "note", cellStyle: { textAlign: "center" } },
   ];
 
   /* eslint-disable no-undef */
@@ -119,10 +138,21 @@ const MaterialTableAdmin = ({ sheetData }) => {
         //   })
         // }
         options={{
+          actionsColumnIndex: -1,
           exportButton: true,
           exportFileName: `RMA Sheet - ${new Date().toDateString()}`,
           grouping: true,
-          actionsColumnIndex: -1,
+          headerStyle: {
+            // backgroundColor: "#031CFC",
+            right: "10",
+            backgroundColor: "rgba(3,28,252,0.8)",
+            color: "white",
+            fontWeight: "bold",
+            textAlign: "center",
+          },
+          rowStyle: {
+            textAlign: "right",
+          },
           pageSize: 10,
           pageSizeOptions: [10, 20, 50],
         }}
@@ -134,6 +164,12 @@ const MaterialTableAdmin = ({ sheetData }) => {
           onRowDelete: onRowDelete,
         }}
       />
+      <style jsx>{`
+        .MuiCheckbox-colorPrimary.Mui-disabled {
+          margin-right: 69px;
+          color: rgba(3, 28, 252, 0.8);
+        }
+      `}</style>
     </div>
   );
 };

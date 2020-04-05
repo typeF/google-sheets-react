@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Layout from "../components/layout";
-// import MaterialTableAdmin from "../components/AdminTable";
 import MaterialTableViewOnly from "../components/ViewOnlyTable";
 
 /* eslint-disable */
@@ -12,11 +11,8 @@ export default () => {
     <div className="container">
       <Layout setSheetsLoaded={setSheetsLoaded} setSheetData={setSheetData} />
       <main>
-        <h1 className="title">Spreadsheet</h1>
+        <h1 className="title">RMA List</h1>
         <div className="table-container">
-          {/* {sheetsLoaded && sheetData.length > 0 && (
-            <MaterialTableAdmin sheetData={sheetData} />
-          )} */}
           {sheetsLoaded && sheetData.length > 0 && (
             <MaterialTableViewOnly sheetData={sheetData} />
           )}
@@ -53,15 +49,6 @@ export default () => {
           align-items: center;
         }
 
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
         .title {
           margin: 0;
           line-height: 1.15;
@@ -71,28 +58,6 @@ export default () => {
         .title,
         .description {
           text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
         }
       `}</style>
 

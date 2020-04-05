@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Profiler } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
 import { addRowToSheets, updateRow, deleteRow } from "../api/googleSheets";

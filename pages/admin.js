@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Layout from "../components/layout";
 import MaterialTableAdmin from "../components/AdminTable";
-import { useFetchUser } from "../lib/user";
+import { useFetchUser, fetchUser } from "../lib/user";
+import auth0 from "../lib/auth0";
 
 /* eslint-disable */
-export default () => {
+const Admin = () => {
   const [sheetsLoaded, setSheetsLoaded] = useState(false);
   const [sheetData, setSheetData] = useState({});
-
   const { user, loading } = useFetchUser();
 
   return (
@@ -102,3 +102,21 @@ export default () => {
     </div>
   );
 };
+
+Admin.getInitialProps = async ({ req, res }) => {
+  if (typeof window === "undefined") {
+    const session = await auth0.getSession(req);
+    if (!session || !session.user) {
+      res.writeHead(302, {
+        Location: "/api/login",
+      });
+      res.end();
+      return;
+    }
+
+    const user = await fetchUser();
+    return { user };
+  }
+};
+
+export default Admin;

@@ -1,0 +1,15 @@
+{
+  "build": {
+    "env": {
+      "GS_CLIENT_ID": "@gs_client_id",
+      "GS_API_KEY": "@gs_api_key",
+      "GS_DISCOVERY_DOCS": "@gs_discovery_docs",
+      "GS_SCOPES_WRITE": "@gs_scopes_write",
+      "GS_SPREADSHEET_ID": "@gs_spreadsheet_id",
+      "GS_SHEET_ID": "@gs_sheet_id",
+      "AUTH0_DOMAIN": "@auth0_domain",
+      "AUTH0_CLIENT_ID": "@auth0_client_id",
+      "SESSION_COOKIE_SECRET": "@session_cookie_secret"
+    }
+  }
+}

@@ -26,8 +26,8 @@ export default ({
   function initClient() {
     gapi.client
       .init({
-        apiKey: process.env.GS_API_KEY,
-        clientId: process.env.GS_CLIENT_ID,
+        apiKey: GS_API_KEY,
+        clientId: GS_CLIENT_ID,
         discoveryDocs: [
           "https://sheets.googleapis.com/$discovery/rest?version=v4",
         ],
@@ -54,7 +54,7 @@ export default ({
   const loadSpreadSheet = () => {
     gapi.client.sheets.spreadsheets.values
       .get({
-        spreadsheetId: process.env.GS_SPREADSHEET_ID,
+        spreadsheetId: GS_SPREADSHEET_ID,
         range: "RMA list",
       })
       .then(

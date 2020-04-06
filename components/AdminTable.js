@@ -1,7 +1,8 @@
-import React, { useState, useEffect, Profiler } from "react";
+import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
 import { addRowToSheets, updateRow, deleteRow } from "../api/googleSheets";
+import { APP_URL } from "../api/config";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -50,6 +51,10 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   const deAuthorizeApp = () => {
     gapi.auth2.getAuthInstance().signOut();
+  };
+
+  const logOut = () => {
+    window.location = `${APP_URL}/api/logout`;
   };
 
   const { data } = gridData;
@@ -138,10 +143,18 @@ const MaterialTableAdmin = ({ sheetData }) => {
           },
           {
             icon: "lockopen",
-            tooltip: "Log App out",
+            tooltip: "De-Authorize App from Write",
             isFreeAction: true,
             onClick: () => {
               deAuthorizeApp();
+            },
+          },
+          {
+            icon: "exit_to_app",
+            tooltip: "Log out",
+            isFreeAction: true,
+            onClick: () => {
+              logOut();
             },
           },
         ]}

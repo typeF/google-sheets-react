@@ -15,7 +15,6 @@ export const formatData = (data) => {
     })
     .slice(1)
     .filter(rowNotEmpty);
-  console.log(arr);
   return arr;
 };
 

@@ -26,10 +26,10 @@ export default ({
   function initClient() {
     gapi.client
       .init({
-        apiKey: GS_API_KEY,
-        clientId: GS_CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES_WRITE,
+        apiKey: process.env.GS_API_KEY,
+        clientId: process.env.GS_CLIENT_ID,
+        discoveryDocs: process.env.DISCOVERY_DOCS,
+        scope: process.env.SCOPES_WRITE,
       })
       .then(
         () => {
@@ -52,7 +52,7 @@ export default ({
   const loadSpreadSheet = () => {
     gapi.client.sheets.spreadsheets.values
       .get({
-        spreadsheetId: GS_SPREADSHEET_ID,
+        spreadsheetId: process.env.GS_SPREADSHEET_ID,
         range: "RMA list",
       })
       .then(

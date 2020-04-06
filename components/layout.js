@@ -45,7 +45,8 @@ export default ({
           loadSpreadSheet();
         },
         (error) => {
-          console.error(`Error initClient: ${error.code} ${error.message}`);
+          console.log(`Error initClient: ${error.code} ${error.message}`);
+          console.log(error);
         }
       );
   }
@@ -66,7 +67,7 @@ export default ({
           }
         },
         function (response) {
-          console.error(`Error: ${response.result.error.message}`);
+          console.log(`Error: ${response.result.error.message}`);
         }
       );
   };

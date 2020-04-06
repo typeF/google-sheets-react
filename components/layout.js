@@ -28,8 +28,10 @@ export default ({
       .init({
         apiKey: process.env.GS_API_KEY,
         clientId: process.env.GS_CLIENT_ID,
-        discoveryDocs: process.env.DISCOVERY_DOCS,
-        scope: process.env.SCOPES_WRITE,
+        discoveryDocs: [
+          "https://sheets.googleapis.com/$discovery/rest?version=v4",
+        ],
+        scope: "https://www.googleapis.com/auth/spreadsheets",
       })
       .then(
         () => {
@@ -43,8 +45,7 @@ export default ({
           loadSpreadSheet();
         },
         (error) => {
-          console.error(error);
-          // setMsg(JSON.stringify(error, null, 2));
+          console.error(`Error initClient: ${error.code} ${error.message}`);
         }
       );
   }
@@ -85,7 +86,12 @@ export default ({
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
-          <script async defer src="https://apis.google.com/js/api.js"></script>
+          <script
+            key="gapi"
+            async="async"
+            defer
+            src="https://apis.google.com/js/api.js"
+          ></script>
         </Head>
         {children}
       </div>

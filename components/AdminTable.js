@@ -54,7 +54,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
   };
 
   const logOut = () => {
-    window.location = `${APP_URL}/api/logout`;
+    window.location = `/api/logout`;
   };
 
   const { data } = gridData;

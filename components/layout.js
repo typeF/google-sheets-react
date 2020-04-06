@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { formatData } from "../utils/formatData";
 import { UserProvider } from "../lib/user";
 import {
-  CLIENT_ID,
+  GS_CLIENT_ID,
   GS_API_KEY,
   DISCOVERY_DOCS,
   SCOPES_WRITE,
   GS_SPREADSHEET_ID,
-} from "../api/config";
+} from "../lib/config";
 
 /* eslint-disable */
 export default ({
@@ -27,7 +27,7 @@ export default ({
     gapi.client
       .init({
         apiKey: GS_API_KEY,
-        clientId: CLIENT_ID,
+        clientId: GS_CLIENT_ID,
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES_WRITE,
       })

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
-import { addRowToSheets, updateRow, deleteRow } from "../api/googleSheets";
-import { APP_URL } from "../api/config";
+import { addRowToSheets, updateRow, deleteRow } from "../lib/googleSheets";
+import { APP_URL } from "../lib/config";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({

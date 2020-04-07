@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
 import { addRowToSheets, updateRow, deleteRow } from "../lib/googleSheets";
-import { APP_URL } from "../lib/config";
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -77,6 +76,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
         width: 200,
         textAlign: "center",
       },
+      type: "numeric",
     },
     {
       title: "RMA #",
@@ -84,6 +84,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
       cellStyle: {
         textAlign: "center",
       },
+      type: "numeric",
     },
     {
       title: "✓",
@@ -112,6 +113,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
       cellStyle: {
         textAlign: "center",
       },
+      type: "date",
     },
     {
       title: "Completed",
@@ -119,9 +121,15 @@ const MaterialTableAdmin = ({ sheetData }) => {
       cellStyle: {
         textAlign: "center",
       },
+      type: "date",
     },
     { title: "Part", field: "part", cellStyle: { textAlign: "center" } },
-    { title: "QTY", field: "qty", cellStyle: { textAlign: "center" } },
+    {
+      title: "QTY",
+      field: "qty",
+      cellStyle: { textAlign: "center" },
+      type: "numeric",
+    },
     { title: "Note", field: "note", cellStyle: { textAlign: "center" } },
   ];
 

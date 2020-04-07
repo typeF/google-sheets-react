@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable from "material-table";
 import Checkbox from "@material-ui/core/Checkbox";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 import { addRowToSheets, updateRow, deleteRow } from "../lib/googleSheets";
+
+const Alert = (props) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 const MaterialTableAdmin = ({ sheetData }) => {
   const [gridData, setGridData] = useState({
@@ -10,14 +16,25 @@ const MaterialTableAdmin = ({ sheetData }) => {
     updatedAt: new Date(),
   });
 
+  const [openSuccess, setOpenSuccess] = useState(false);
+  const [openFail, setOpenFail] = useState(false);
+
   useEffect(() => {
     gridData.resolve();
   }, [gridData]);
 
+  const handleClose = (e, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSuccess(false);
+    setOpenFail(false);
+  };
+
   const onRowAdd = (newData) =>
     new Promise((resolve, reject) => {
       // TODO: Provide feedback depending on success/fail of async
-      addRowToSheets(newData);
+      addRowToSheets(newData, { success: setOpenSuccess, error: setOpenFail });
       const { data } = gridData;
       const updatedAt = new Date();
       data.push(newData);
@@ -26,7 +43,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   const onRowUpdate = (newData, oldData) =>
     new Promise((resolve, reject) => {
-      updateRow(newData);
+      updateRow(newData, { success: setOpenSuccess, error: setOpenFail });
       const { data } = gridData;
       const updatedAt = new Date();
       const index = data.indexOf(oldData);
@@ -36,7 +53,7 @@ const MaterialTableAdmin = ({ sheetData }) => {
 
   const onRowDelete = (oldData) =>
     new Promise((resolve, reject) => {
-      deleteRow(oldData);
+      deleteRow(oldData, { success: setOpenSuccess, error: setOpenFail });
       const { data } = gridData;
       const updatedAt = new Date();
       const index = data.indexOf(oldData);
@@ -192,6 +209,26 @@ const MaterialTableAdmin = ({ sheetData }) => {
           onRowDelete: onRowDelete,
         }}
       />
+      <Snackbar
+        open={openSuccess}
+        onClose={handleClose}
+        autoHideDuration={2500}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="success">
+          Successfully updated Google sheet!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={openFail}
+        onClose={handleClose}
+        autoHideDuration={2500}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert onClose={handleClose} severity="error">
+          Error connecting to Google sheet!
+        </Alert>
+      </Snackbar>
       <style jsx>{`
         .Checkbox.disabled {
           margin-right: 69px;

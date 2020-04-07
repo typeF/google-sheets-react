@@ -1,28 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/zeit/next.js/tree/canary/packages/create-next-app).
+## About
 
-## Getting Started
+A Next.js application that loads data remotely from Google Sheets data into [Material Table](https://material-table.com). Uses the serverless function features of ZEIT Now to authenticate users for protected routes via Next.js SDK for signing in with [Auth0](https://github.com/auth0/nextjs-auth0).
 
-First, run the development server:
+## Setup
+
+### Auth0
+
+Follow Auth0 configuration setup for [here](https://github.com/auth0/nextjs-auth0).
+
+### Local Development
+
+Create .env and .env.build files with the following values
+
+```bash
+# Obtain from Google Sheets API
+GS_CLIENT_ID=
+GS_API_KEY=
+GS_DISCOVERY_DOCS=https://sheets.googleapis.com/$discovery/rest?version=v4
+GS_SCOPES_READ_ONLY=https://www.googleapis.com/auth/spreadsheets.readonly
+GS_SCOPES_WRITE=https://www.googleapis.com/auth/spreadsheets
+
+
+# Add your own
+GS_SPREADSHEET_ID=
+GS_SHEET_ID=
+
+# Obtain from Auth0 Config
+AUTH0_DOMAIN=
+AUTH0_CLIENT_ID=
+AUTH0_CLIENT_SECRET=
+
+SESSION_COOKIE_SECRET=YOUR_SUPER_DUPER_SECRET
+APP_URL=http://localhost:3000
+```
+
+## Usage
 
 ```bash
 npm run dev
 # or
 yarn dev
+# or
+now dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment setup
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## ENV Variable setup
-
-Create a **next.config.js** file with the following variables:
+Add environment variables according to now.json
 
 ```
-GS_CLIENT_ID: Google sheets client ID
-GS_API_KEY: Google Developer API key
-GS_DISCOVERY_DOCS: "https://sheets.googleapis.com/$discovery/rest?version=v4"
-GS_SCOPES: "https://www.googleapis.com/auth/spreadsheets.readonly",
+now secrets add secret_variable_name secret_value
 ```
 
 ## Deploy on ZEIT Now
